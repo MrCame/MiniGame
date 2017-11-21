@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
 	public Rigidbody2D rb;
-    public float movespeed;
-    public float jumpheight;
+    public float movespeed = 3.0f;
+    public float jumpheight = 5.0f;
     public bool moveright;
     public bool moveleft;
     public bool jump;
@@ -22,13 +22,14 @@ public class PlayerController : MonoBehaviour {
     public float groundCheckRadius;
     public LayerMask whatIsGround;
     private bool onGround;
-
+    // animations
+    private Animator anim;
     [HideInInspector]
-    public bool facingRight;
+    public bool facingRight = true;
 
     void Start () {
         rb = GetComponent<Rigidbody2D>();
-
+        anim = GetComponent<Animator>();
     }
 
     // Check whether on ground
@@ -39,17 +40,26 @@ public class PlayerController : MonoBehaviour {
         
     void Update () {
 
+        float h = -Input.GetAxis("Horizontal");
+        anim.SetFloat("Speed", Mathf.Abs(h));
+
         // Control From keyboard A:shoot, space: jump, left and right arrow: control
         if (Input.GetKey (KeyCode.LeftArrow)) {
             rb.velocity = new Vector2 (-movespeed, rb.velocity.y);
-            facingRight = false;
 
         }
         if (Input.GetKey (KeyCode.RightArrow)) {
             rb.velocity = new Vector2 (movespeed, rb.velocity.y);
-            facingRight = true;
-
         }
+
+        if(h > 0 && !facingRight)
+            // ... flip the player.
+            Flip();
+        // Otherwise if the input is moving the player left and the player is facing right...
+        else if(h < 0 && facingRight)
+            // ... flip the player.
+            Flip();
+
         if (Input.GetKey(KeyCode.Space))
         {
             if (onGround)
@@ -67,12 +77,10 @@ public class PlayerController : MonoBehaviour {
         // Control From Touch
         if (moveright) {
             rb.velocity = new Vector2 (movespeed, rb.velocity.y);
-            facingRight = true;
         }
 
         if (moveleft) {
             rb.velocity = new Vector2 (-movespeed, rb.velocity.y);
-            facingRight = false;
         }
 
         if (jump)
@@ -83,5 +91,16 @@ public class PlayerController : MonoBehaviour {
             }
             jump = false;
         }
+    }
+
+    void Flip ()
+    {
+        // Switch the way the player is labelled as facing.
+        facingRight = !facingRight;
+
+        // Multiply the player's x local scale by -1.
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
     }
 }
