@@ -11,19 +11,15 @@ public class PlayerController : MonoBehaviour {
     public bool moveleft;
     public bool jump;
 
-    // Shoot Parameters
-    public GameObject shot;
-    public Transform shotSpawn;
-    public float fireRate = 0.5f; //the frequency of shoot 
-    private float nextFire;
-
     // Parameters to check whether on ground
     public Transform groundCheck;
     public float groundCheckRadius;
     public LayerMask whatIsGround;
     private bool onGround;
     // animations
+
     private Animator anim;
+    private float h;
     [HideInInspector]
     public bool facingRight = true;
 
@@ -40,25 +36,19 @@ public class PlayerController : MonoBehaviour {
         
     void Update () {
 
-        float h = -Input.GetAxis("Horizontal");
-        anim.SetFloat("Speed", Mathf.Abs(h));
-
+        h = 0;        
         // Control From keyboard A:shoot, space: jump, left and right arrow: control
         if (Input.GetKey (KeyCode.LeftArrow)) {
+            h = -1;
             rb.velocity = new Vector2 (-movespeed, rb.velocity.y);
 
         }
         if (Input.GetKey (KeyCode.RightArrow)) {
+            h = 1;
             rb.velocity = new Vector2 (movespeed, rb.velocity.y);
         }
 
-        if(h > 0 && !facingRight)
-            // ... flip the player.
-            Flip();
-        // Otherwise if the input is moving the player left and the player is facing right...
-        else if(h < 0 && facingRight)
-            // ... flip the player.
-            Flip();
+        anim.SetFloat("Speed", Mathf.Abs(h));
 
         if (Input.GetKey(KeyCode.Space))
         {
@@ -68,11 +58,13 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
-        if (Input.GetKey (KeyCode.A) && Time.time > nextFire) 
-        {
-            nextFire = Time.time + fireRate;
-            Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
-        }
+        if(h > 0 && !facingRight)
+            // ... flip the player.
+            Flip();
+        // Otherwise if the input is moving the player left and the player is facing right...
+        else if(h < 0 && facingRight)
+            // ... flip the player.
+            Flip();
 
         // Control From Touch
         if (moveright) {

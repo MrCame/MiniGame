@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class SnowBullet : MonoBehaviour {
 
-    public float speed = 20f;
 	// Use this for initialization
 
 	void Start () {
-        GetComponent<Rigidbody2D>().velocity = new Vector2(speed, 0);
         Destroy(gameObject, 1);
 	}
 	
