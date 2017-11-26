@@ -46,10 +46,29 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\CameraController.cs" />
+     <Compile Include="Assets\Scripts\DestroyMe.cs" />
+     <Compile Include="Assets\Scripts\EnemyController.cs" />
+     <Compile Include="Assets\Scripts\EnemyDemonController.cs" />
+     <Compile Include="Assets\Scripts\EnemyHealth.cs" />
+     <Compile Include="Assets\Scripts\EnemyMaryController.cs" />
+     <Compile Include="Assets\Scripts\EnemyMothController.cs" />
+     <Compile Include="Assets\Scripts\EnemyRabbitController.cs" />
+     <Compile Include="Assets\Scripts\EnemyRabbitDamage.cs" />
+     <Compile Include="Assets\Scripts\EnemyRboyController.cs" />
+     <Compile Include="Assets\Scripts\EnemyRboyDamage.cs" />
+     <Compile Include="Assets\Scripts\EnemySlimController.cs" />
+     <Compile Include="Assets\Scripts\GameController.cs" />
+     <Compile Include="Assets\Scripts\IceHit.cs" />
+     <Compile Include="Assets\Scripts\Mirror.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\PlayerHealth.cs" />
      <Compile Include="Assets\Scripts\Shoot.cs" />
+     <Compile Include="Assets\Scripts\ShotSpeed.cs" />
      <Compile Include="Assets\Scripts\SnowBullet.cs" />
      <Compile Include="Assets\Scripts\Touch.cs" />
+     <Compile Include="Assets\Scripts\UFOController.cs" />
+     <Compile Include="Assets\Scripts\WaveHit.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
