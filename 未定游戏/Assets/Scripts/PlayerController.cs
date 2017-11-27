@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour {
     public bool moveleft;
     public bool jump;
 
+    
     // Parameters to check whether on ground
     public Transform groundCheck;
     public float groundCheckRadius;
@@ -22,10 +23,17 @@ public class PlayerController : MonoBehaviour {
     private float h;
     [HideInInspector]
     public bool facingRight = true;
+    [HideInInspector]
+    public bool caught = false;
+    [HideInInspector]
+    public bool hit = false;   // show if the player is hit
+    private int hitback = 0;   //count time when hit
 
     void Start () {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        hit = false;
+        caught = false;
     }
 
     // Check whether on ground
@@ -35,19 +43,30 @@ public class PlayerController : MonoBehaviour {
     }
         
     void Update () {
-
-        h = 0;        
+        h = 0;
+        if (hit && !caught)
+        {
+            hitback++;
+            if (hitback >= 10)
+            {
+                hit = false;
+                hitback = 0;
+            }
+        }
         // Control From keyboard A:shoot, space: jump, left and right arrow: control
-        if (Input.GetKey (KeyCode.LeftArrow)) {
+        else if (Input.GetKey (KeyCode.LeftArrow)) {
             h = -1;
             rb.velocity = new Vector2 (-movespeed, rb.velocity.y);
 
         }
-        if (Input.GetKey (KeyCode.RightArrow)) {
+        else if (Input.GetKey (KeyCode.RightArrow)) {
             h = 1;
             rb.velocity = new Vector2 (movespeed, rb.velocity.y);
         }
-
+        else
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }
         anim.SetFloat("Speed", Mathf.Abs(h));
 
         if (Input.GetKey(KeyCode.Space))
@@ -94,5 +113,10 @@ public class PlayerController : MonoBehaviour {
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
+    }
+
+    public void setspeed(Vector2 speed)
+    {
+        rb.velocity = speed;
     }
 }

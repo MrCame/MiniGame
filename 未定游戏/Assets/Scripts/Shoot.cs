@@ -29,11 +29,17 @@ public class Shoot : MonoBehaviour
         {
             nextFire = Time.time + fireRate;
             // ... set the animator Shoot trigger parameter and play the audioclip.
-            anim.SetTrigger("WalkShoot");
-            anim.SetTrigger("IdleShoot");
+            if(anim.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle"))
+            {
+                anim.SetTrigger("IdleShoot");
+            }
+            if (anim.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Walk"))
+            {
+                anim.SetTrigger("WalkShoot");
+            }
 
             // If the player is facing right...
-            if(playerCtrl.facingRight)
+            if (playerCtrl.facingRight)
             {
                 // ... instantiate the rocket facing right and set it's velocity to the right. 
                 Rigidbody2D bulletInstance = Instantiate(shot, shotSpawn.position, Quaternion.Euler(new Vector3(0,0,0))) as Rigidbody2D;
