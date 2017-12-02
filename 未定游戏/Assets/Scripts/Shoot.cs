@@ -13,6 +13,9 @@ public class Shoot : MonoBehaviour
     private PlayerController playerCtrl;       // Reference to the PlayerControl script.
     private Animator anim;                  // Reference to the Animator component.
 
+    public AudioClip Audio_shot;
+
+    public bool TouchAttack;
 
     void Awake()
     {
@@ -25,8 +28,9 @@ public class Shoot : MonoBehaviour
     void Update ()
     {
         // If the fire button is pressed...
-        if (Input.GetKey (KeyCode.A) && Time.time > nextFire) 
+        if ((Input.GetKey (KeyCode.A) || TouchAttack) && Time.time > nextFire ) 
         {
+            AudioSource.PlayClipAtPoint(Audio_shot, transform.position);
             nextFire = Time.time + fireRate;
             // ... set the animator Shoot trigger parameter and play the audioclip.
             if(anim.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle"))
@@ -51,6 +55,7 @@ public class Shoot : MonoBehaviour
                 Rigidbody2D bulletInstance = Instantiate(shot, shotSpawn.position, Quaternion.Euler(new Vector3(0,0,180f))) as Rigidbody2D;
                 bulletInstance.velocity = new Vector2(-speed, 0);
             }
+            TouchAttack = false;
         }
     }
 }

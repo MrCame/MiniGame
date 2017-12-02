@@ -7,10 +7,11 @@ public class PlayerController : MonoBehaviour {
 	public Rigidbody2D rb;
     public float movespeed = 3.0f;
     public float jumpheight = 5.0f;
-    public bool moveright;
-    public bool moveleft;
-    public bool jump;
+    public bool TouchJump;
 
+    public float moveForce = 365f;          // Amount of force added to move the player left and right.
+    public float maxSpeed = 5f;
+    public float jumpForce = 1f; 
     
     // Parameters to check whether on ground
     public Transform groundCheck;
@@ -20,7 +21,9 @@ public class PlayerController : MonoBehaviour {
     // animations
 
     private Animator anim;
-    private float h;
+    [HideInInspector]
+    public float h = 0f;
+    public bool TouchGet = false;
     [HideInInspector]
     public bool facingRight = true;
     [HideInInspector]
@@ -43,7 +46,19 @@ public class PlayerController : MonoBehaviour {
     }
         
     void Update () {
-        h = 0;
+
+        // Control From keyboard A:shoot, space: jump, left and right arrow: control
+        
+        if (!TouchGet) // Control from Touch Not keyboard
+        {
+            if (Input.GetKey (KeyCode.LeftArrow)) 
+                h = -1;
+            else if(Input.GetKey (KeyCode.RightArrow))
+                h = 1;
+            else 
+                h = 0;
+        }
+
         if (hit && !caught)
         {
             hitback++;
@@ -53,30 +68,6 @@ public class PlayerController : MonoBehaviour {
                 hitback = 0;
             }
         }
-        // Control From keyboard A:shoot, space: jump, left and right arrow: control
-        else if (Input.GetKey (KeyCode.LeftArrow)) {
-            h = -1;
-            rb.velocity = new Vector2 (-movespeed, rb.velocity.y);
-
-        }
-        else if (Input.GetKey (KeyCode.RightArrow)) {
-            h = 1;
-            rb.velocity = new Vector2 (movespeed, rb.velocity.y);
-        }
-        else
-        {
-            rb.velocity = new Vector2(0, rb.velocity.y);
-        }
-        anim.SetFloat("Speed", Mathf.Abs(h));
-
-        if (Input.GetKey(KeyCode.Space))
-        {
-            if (onGround)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, jumpheight);
-            }
-        }
-
         if(h > 0 && !facingRight)
             // ... flip the player.
             Flip();
@@ -85,23 +76,31 @@ public class PlayerController : MonoBehaviour {
             // ... flip the player.
             Flip();
 
-        // Control From Touch
-        if (moveright) {
-            rb.velocity = new Vector2 (movespeed, rb.velocity.y);
-        }
+        rb.velocity = new Vector2 (h * movespeed, rb.velocity.y);
+        // Control From keyboard A:shoot, space: jump, left and right arrow: control
+    
+        anim.SetFloat("Speed", Mathf.Abs(h));
 
-        if (moveleft) {
-            rb.velocity = new Vector2 (-movespeed, rb.velocity.y);
-        }
-
-        if (jump)
+        if (Input.GetKey(KeyCode.Space) || TouchJump)
         {
             if (onGround)
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpheight);
             }
-            jump = false;
+            TouchJump = false;
         }
+        
+
+        // Control From Touch
+/*
+        if (TouchJump)
+        {
+            if (onGround)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpheight);
+            }
+            Jump = false;
+        }*/
     }
 
     void Flip ()

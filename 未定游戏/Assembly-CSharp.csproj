@@ -46,6 +46,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\CameraController.cs" />
+     <Compile Include="Assets\Scripts\DestroyMe.cs" />
+     <Compile Include="Assets\Scripts\Enemy\EnemyDemonController.cs" />
+     <Compile Include="Assets\Scripts\Enemy\EnemyHealth.cs" />
+     <Compile Include="Assets\Scripts\Enemy\EnemyMaryController.cs" />
+     <Compile Include="Assets\Scripts\Enemy\EnemyMothController.cs" />
+     <Compile Include="Assets\Scripts\Enemy\EnemyRabbitController.cs" />
+     <Compile Include="Assets\Scripts\Enemy\EnemyRabbitDamage.cs" />
+     <Compile Include="Assets\Scripts\Enemy\EnemyRboyController.cs" />
+     <Compile Include="Assets\Scripts\Enemy\EnemyRboyDamage.cs" />
+     <Compile Include="Assets\Scripts\Enemy\EnemySlimController.cs" />
+     <Compile Include="Assets\Scripts\Enemy\Mirror.cs" />
+     <Compile Include="Assets\Scripts\Enemy\PlayerHealth.cs" />
+     <Compile Include="Assets\Scripts\Enemy\ShotSpeed.cs" />
+     <Compile Include="Assets\Scripts\Enemy\UFOController.cs" />
+     <Compile Include="Assets\Scripts\Enemy\WaveHit.cs" />
+     <Compile Include="Assets\Scripts\IceHit.cs" />
+     <Compile Include="Assets\Scripts\MusicPlay.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Shoot.cs" />
      <Compile Include="Assets\Scripts\SnowBullet.cs" />
