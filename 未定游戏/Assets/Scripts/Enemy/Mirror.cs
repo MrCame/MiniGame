@@ -7,6 +7,7 @@ public class Mirror : MonoBehaviour
     [HideInInspector]
     public bool used;  //检查是否刚刚被使用
     public Transform teleSpot;     //目标传送地点
+    public AudioSource teleSound;
     private Mirror mr;
     private Rigidbody2D rb;
     // Use this for initialization
@@ -30,7 +31,8 @@ public class Mirror : MonoBehaviour
             {
                 rb = collision.gameObject.GetComponent<Rigidbody2D>();
                 used = true;
-                rb.transform.position = new Vector3(teleSpot.position.x , teleSpot.position.y, 0);  
+                rb.transform.position = new Vector3(teleSpot.position.x , teleSpot.position.y, 0);
+                teleSound.Play();
             }
         }
     }

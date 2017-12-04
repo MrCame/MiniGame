@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\DestroyMe.cs" />
+    <Compile Include="Assets\Scripts\Enemy\EnemyCrocController.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyDemonController.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyHealth.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyMaryController.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Assets\Scripts\Enemy\UFOController.cs" />
     <Compile Include="Assets\Scripts\Enemy\WaveHit.cs" />
     <Compile Include="Assets\Scripts\IceHit.cs" />
+    <Compile Include="Assets\Scripts\MusicPlay.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Shoot.cs" />
     <Compile Include="Assets\Scripts\SnowBullet.cs" />

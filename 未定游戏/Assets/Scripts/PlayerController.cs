@@ -15,9 +15,13 @@ public class PlayerController : MonoBehaviour {
     
     // Parameters to check whether on ground
     public Transform groundCheck;
+    public Transform camCheck;
     public float groundCheckRadius;
     public LayerMask whatIsGround;
-    private bool onGround;
+    [HideInInspector]
+    public bool onGround;
+    [HideInInspector]
+    public bool focus;
     // animations
 
     private Animator anim;
@@ -43,6 +47,7 @@ public class PlayerController : MonoBehaviour {
     void FixedUpdate()
     {
         onGround = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
+        focus = Physics2D.OverlapCircle(camCheck.position, groundCheckRadius, whatIsGround);
     }
         
     void Update () {
