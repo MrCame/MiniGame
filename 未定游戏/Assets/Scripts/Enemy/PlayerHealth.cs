@@ -9,6 +9,7 @@ public class PlayerHealth : MonoBehaviour
     public float PlayerMaxHealth;
     public GameObject deathFX;
     public Slider PlayerHealthBar;
+    public AudioSource hit;
     [HideInInspector]public float currentHealth;
 
     // Use this for initialization
@@ -30,6 +31,7 @@ public class PlayerHealth : MonoBehaviour
         PlayerHealthBar.gameObject.SetActive(true);
         currentHealth -= damage;
         PlayerHealthBar.value = currentHealth;
+        hit.Play();
         if (currentHealth <= 0)
             onDead();
     }

@@ -73,6 +73,15 @@ public class PlayerController : MonoBehaviour {
                 hitback = 0;
             }
         }
+
+        else
+        {
+            rb.velocity = new Vector2(h * movespeed, rb.velocity.y);
+            // Control From keyboard A:shoot, space: jump, left and right arrow: control
+
+            anim.SetFloat("Speed", Mathf.Abs(h));
+        }
+
         if(h > 0 && !facingRight)
             // ... flip the player.
             Flip();
@@ -81,10 +90,7 @@ public class PlayerController : MonoBehaviour {
             // ... flip the player.
             Flip();
 
-        rb.velocity = new Vector2 (h * movespeed, rb.velocity.y);
-        // Control From keyboard A:shoot, space: jump, left and right arrow: control
-    
-        anim.SetFloat("Speed", Mathf.Abs(h));
+        
 
         if (Input.GetKey(KeyCode.Space) || TouchJump)
         {
