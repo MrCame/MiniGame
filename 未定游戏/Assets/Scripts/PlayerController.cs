@@ -5,14 +5,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
 	public Rigidbody2D rb;
-    public float movespeed = 3.0f;
-    public float jumpheight = 5.0f;
+    public float movespeed = 3.5f;
+    public float jumpheight = 9.5f;
     public bool TouchJump;
-
-    public float moveForce = 365f;          // Amount of force added to move the player left and right.
-    public float maxSpeed = 5f;
-    public float jumpForce = 1f; 
-    
+    //public float Force = 300f;
     // Parameters to check whether on ground
     public Transform groundCheck;
     public Transform camCheck;
@@ -25,8 +21,10 @@ public class PlayerController : MonoBehaviour {
     // animations
 
     private Animator anim;
+    private PlayerAudio PlayerAudio;
+
     [HideInInspector]
-    public float h = 0f;
+    public int h = 0;
     public bool TouchGet = false;
     [HideInInspector]
     public bool facingRight = true;
@@ -39,6 +37,7 @@ public class PlayerController : MonoBehaviour {
     void Start () {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        PlayerAudio = FindObjectOfType<PlayerAudio>();
         hit = false;
         caught = false;
     }
@@ -96,11 +95,16 @@ public class PlayerController : MonoBehaviour {
         {
             if (onGround)
             {
+                PlayerAudio.MakeAudio(0, true, false, false);
                 rb.velocity = new Vector2(rb.velocity.x, jumpheight);
+
+                //rb.AddForce(new Vector3(0, Force, 0));
             }
             TouchJump = false;
         }
-        
+
+        if (onGround)
+            PlayerAudio.MakeAudio(Mathf.Abs(h), false, false, false);
 
         // Control From Touch
 /*

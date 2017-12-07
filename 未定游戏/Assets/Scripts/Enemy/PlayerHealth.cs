@@ -9,10 +9,10 @@ public class PlayerHealth : MonoBehaviour
     public float PlayerMaxHealth;
     public GameObject deathFX;
     public Slider PlayerHealthBar;
-    public AudioSource hit;
 
     public float damagePerSecond = 0.01f;
 
+    private PlayerAudio PlayerAudio;
 
     [HideInInspector]public float currentHealth;
 
@@ -22,6 +22,7 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = PlayerMaxHealth;
         PlayerHealthBar.maxValue = PlayerMaxHealth;
         PlayerHealthBar.value = currentHealth;
+        PlayerAudio = FindObjectOfType<PlayerAudio>();
     }
 
     // Update is called once per frame
@@ -32,10 +33,11 @@ public class PlayerHealth : MonoBehaviour
 
     public void takeDamage(float damage)
     {
+        if (damage > 5)
+            PlayerAudio.MakeAudio(0, false, false, true);
         PlayerHealthBar.gameObject.SetActive(true);
         currentHealth -= damage;
         PlayerHealthBar.value = currentHealth;
-        hit.Play();
         if (currentHealth <= 0)
             onDead();
     }

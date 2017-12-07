@@ -13,7 +13,7 @@ public class Shoot : MonoBehaviour
     private PlayerController playerCtrl;       // Reference to the PlayerControl script.
     private Animator anim;                  // Reference to the Animator component.
 
-    public AudioClip Audio_shot;
+    private PlayerAudio PlayerAudio;
 
     public bool TouchAttack;
 
@@ -22,6 +22,7 @@ public class Shoot : MonoBehaviour
         // Setting up the references.
         anim = transform.root.gameObject.GetComponent<Animator>();
         playerCtrl = transform.root.GetComponent<PlayerController>();
+        PlayerAudio = FindObjectOfType<PlayerAudio>();
     }
 
 
@@ -30,7 +31,7 @@ public class Shoot : MonoBehaviour
         // If the fire button is pressed...
         if ((Input.GetKey (KeyCode.A) || TouchAttack) && Time.time > nextFire ) 
         {
-            AudioSource.PlayClipAtPoint(Audio_shot, transform.position);
+            PlayerAudio.MakeAudio(0, false, true, false);
             nextFire = Time.time + fireRate;
             // ... set the animator Shoot trigger parameter and play the audioclip.
             if(anim.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Idle"))
