@@ -18,7 +18,10 @@ public class WaveHit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (gameObject.GetComponent<Rigidbody2D>().velocity == new Vector2(sh.icespeed, 0) ||
+            gameObject.GetComponent<Rigidbody2D>().velocity == new Vector2(-sh.icespeed, 0))
+            return;
+        else Destroy(gameObject);
     }
     void OnTriggerEnter2D(Collider2D other)
     {

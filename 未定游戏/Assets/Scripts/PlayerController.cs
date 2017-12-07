@@ -129,4 +129,8 @@ public class PlayerController : MonoBehaviour {
     {
         rb.velocity = speed;
     }
+    public void StopControl()
+    {
+        this.enabled = false;
+    }
 }

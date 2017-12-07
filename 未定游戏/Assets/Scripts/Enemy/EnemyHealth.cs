@@ -27,7 +27,15 @@ public class EnemyHealth : MonoBehaviour {
         currentHealth -= damage;
         enemyHealthBar.value = currentHealth;
         if (currentHealth <= 0)
+        {
+            if (GetComponentInChildren<EnemySlimDamage>() != null)
+            {
+                EnemySlimDamage esd = GetComponentInChildren<EnemySlimDamage>();
+                esd.pc.caught = false;
+                esd.pc.setspeed(new Vector2(0, 0));
+            }
             onDead();
+        }
     }
 
     private void onDead()

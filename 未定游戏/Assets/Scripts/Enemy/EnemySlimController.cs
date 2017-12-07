@@ -4,44 +4,27 @@ using UnityEngine;
 
 public class EnemySlimController : MonoBehaviour
 {
+    public float moveSpeed;   //normal movespeed
+    public float attackSpeed;   // speed when chasing character
     public GameObject slim;
-    public float moveSpeed;
     [HideInInspector]
-    public int faceRight = -1;
+    public int faceRight = -1;   //current facing
     [HideInInspector]
-    public bool canFlip = true;
-    [HideInInspector]
-    public bool caught = false;
-    public float damage;
-    float flipTime = 5.0f;
-    float nextFlip = 1.0f;
-    Rigidbody2D rb;
-
-    private PlayerController pc;
+    public bool canFlip = true;   // judge if it can flip
+    float flipTime = 5.0f;   //time between two flips
+    float nextFlip = 1.0f;   //after this time  you can flip
+    private Rigidbody2D rb;
 
     // Use this for initialization
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        faceRight = -1;
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        if (rb != null && slim!=null)
-        {
-            slim.transform.position = rb.transform.position; ;
-        }
-        if (GetComponentInChildren<EnemyHealth>() == null)
-        {
-            if (pc != null)
-            {
-                pc.setspeed(new Vector2(0, 0));
-                pc.caught = false;
-            }
-            Destroy(gameObject);
-        }
+        slim.transform.position = gameObject.transform.position;
         if (Time.time > nextFlip && canFlip)
         {
             flipFacing();
@@ -53,25 +36,48 @@ public class EnemySlimController : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other == null) return;
+        if (other.tag == "Player")
+        {
+            if (faceRight == 1 && transform.position.x > other.transform.position.x)
+                flipFacing();
+            else if (faceRight == -1 && transform.position.x < other.transform.position.x)
+                flipFacing();
+            canFlip = false;
+            rb.velocity = new Vector2(attackSpeed * faceRight, 0);
+        }
+
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            if (faceRight == 1 && transform.position.x > other.transform.position.x)
+                flipFacing();
+            else if (faceRight == -1 && transform.position.x < other.transform.position.x)
+                flipFacing();
+            canFlip = false;
+            rb.velocity = new Vector2(attackSpeed * faceRight, 0);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            canFlip = true;
+        }
+    }
 
     void flipFacing()
     {
-        float facingX = transform.localScale.x;
+        if (slim == null) return;
+        float facingX = slim.transform.localScale.x;
         facingX *= -1;
-        transform.localScale = new Vector3(facingX, transform.localScale.y, transform.localScale.z);
+        slim.transform.localScale = new Vector3(facingX, slim.transform.localScale.y, slim.transform.localScale.z);
         faceRight = -faceRight;
     }
-
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "Player")
-        {
-            pc = collision.gameObject.GetComponent<PlayerController>();
-            pc.setspeed(rb.velocity);
-            pc.caught = true;
-            canFlip = false;
-        }
-    }
 }
-

@@ -6,22 +6,19 @@ public class EnemyMothController : MonoBehaviour {
 
     public GameObject waveShot;
     public Transform shotSpawn;
-    private bool shootRight = false;
-    private bool inside = false;
+    private bool shootRight;
     private float fireRate = 3.0f;
     private float nextFire = 0f;
 
 
     // Use this for initialization
     void Start () {
+        shootRight = true;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (inside == true)
-        {
-            fireWave();
-        }
+        fireWave();
         if (GetComponentInChildren<EnemyHealth>() == null)
             Destroy(gameObject);
     }
@@ -46,19 +43,13 @@ public class EnemyMothController : MonoBehaviour {
     {
         if (collision.tag == "Player")
         {
-            inside = true;
             if (collision.transform.position.x > transform.position.x)
                 shootRight = false;
             else shootRight = true;
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision) {
-        if (collision.tag == "Player")
-        {
-            inside = false;
-        }
-    }
+
 
     private void OnTriggerStay2D(Collider2D collision)
     {

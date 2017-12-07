@@ -10,6 +10,10 @@ public class PlayerHealth : MonoBehaviour
     public GameObject deathFX;
     public Slider PlayerHealthBar;
     public AudioSource hit;
+
+    public float damagePerSecond = 0.01f;
+
+
     [HideInInspector]public float currentHealth;
 
     // Use this for initialization
@@ -23,7 +27,7 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        takeDamage(damagePerSecond);
     }
 
     public void takeDamage(float damage)
@@ -40,5 +44,6 @@ public class PlayerHealth : MonoBehaviour
     {
         Instantiate(deathFX, transform.position, transform.rotation);
         Destroy(gameObject);
+        ResourceManager.Instance().gameMenuCtr.ShowFailPanel();
     }
 }
