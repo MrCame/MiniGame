@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyFishController : MonoBehaviour
 {
-    public float pushForce;
     public float damage;
     // Use this for initialization
     void Start()
@@ -21,7 +20,7 @@ public class EnemyFishController : MonoBehaviour
             Rigidbody2D prb = collision.gameObject.GetComponent<Rigidbody2D>();
             PlayerController pc = collision.gameObject.GetComponent<PlayerController>();
             pc.hit = true;
-            prb.AddForce(new Vector2(-pushForce * prb.velocity.x, 0), ForceMode2D.Impulse);
+            prb.AddForce(new Vector2(-3 * prb.velocity.x, 0), ForceMode2D.Impulse);
             PlayerHealth ph = collision.gameObject.GetComponentInParent<PlayerHealth>();
             ph.takeDamage(damage);
         }
