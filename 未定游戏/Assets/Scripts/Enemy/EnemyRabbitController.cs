@@ -5,6 +5,11 @@ using UnityEngine;
 public class EnemyRabbitController : MonoBehaviour {
 
     Animator anim;
+    public Transform groundCheck;
+    public float groundCheckRadius;
+    public LayerMask whatIsGround;
+    private bool onGround;
+
     public float moveSpeed;   //normal movespeed
     public float attackSpeed;   // speed when chasing character
     public GameObject rabbit;
@@ -22,7 +27,8 @@ public class EnemyRabbitController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Time.time > nextFlip && canFlip)
+        onGround = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
+        if ((Time.time > nextFlip && canFlip) || onGround == false)
         {
             flipFacing();
             nextFlip = Time.time + flipTime;
@@ -35,7 +41,7 @@ public class EnemyRabbitController : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other == null) return;
+        if (other == null || onGround==false) return;
         if (other.tag == "Player")
         {
             anim.speed = 3;
@@ -51,6 +57,8 @@ public class EnemyRabbitController : MonoBehaviour {
 
     private void OnTriggerStay2D(Collider2D other)
     {
+        if (onGround == false)
+            return;
         if (other.tag == "Player")
         {
             anim.speed = 3;

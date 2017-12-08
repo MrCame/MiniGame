@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyCrocController : MonoBehaviour {
 
+    public float pushForce;
     private bool canTurn;
     private int up;
     private Rigidbody2D rb;
@@ -42,7 +43,7 @@ public class EnemyCrocController : MonoBehaviour {
         if (collision.tag == "Player")
         {
             Rigidbody2D prb = collision.gameObject.GetComponent<Rigidbody2D>();
-            prb.AddForce(new Vector2(-3*prb.velocity.x, 0),ForceMode2D.Impulse);
+            prb.AddForce(new Vector2(-pushForce*prb.velocity.x, 0),ForceMode2D.Impulse);
             PlayerHealth ph = collision.gameObject.GetComponentInParent<PlayerHealth>();
             PlayerController pc = collision.gameObject.GetComponent<PlayerController>();
             pc.hit = true;
