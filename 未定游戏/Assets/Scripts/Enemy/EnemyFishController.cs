@@ -5,6 +5,9 @@ using UnityEngine;
 public class EnemyFishController : MonoBehaviour
 {
     public float damage;
+    private EnemyHealth EH;
+    public Rigidbody2D ice;
+    public Transform iceSpawn;
     // Use this for initialization
     void Start()
     {
@@ -24,5 +27,12 @@ public class EnemyFishController : MonoBehaviour
             PlayerHealth ph = collision.gameObject.GetComponentInParent<PlayerHealth>();
             ph.takeDamage(damage);
         }
+    }
+    public void MonsterIce()
+    {
+        EnemyHealth EM = gameObject.GetComponent<EnemyHealth>();
+        Rigidbody2D ice = gameObject.GetComponent<Rigidbody2D>();
+        if (EM.enemyHealthBar.value <= 0)
+            Instantiate(ice, iceSpawn.position, Quaternion.Euler(new Vector3(0, 0, 0)));
     }
 }

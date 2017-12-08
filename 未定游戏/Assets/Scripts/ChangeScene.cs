@@ -16,6 +16,9 @@ public class ChangeScene : MonoBehaviour {
     
     [HideInInspector]
     public BeginMusic BeginMusic;
+    //public Button button;
+    //private Button button;
+    //private Image image;
 
     void Awake()  
     {
@@ -29,6 +32,12 @@ public class ChangeScene : MonoBehaviour {
         BeginMusic._BeginSource.Stop();
     }
 
+    public void onDocBtnDown()
+    {
+        SceneManager.LoadScene("Document");
+        
+    }
+
     public void OnEndBtnDown()
     {
         Application.Quit();
@@ -37,6 +46,7 @@ public class ChangeScene : MonoBehaviour {
     public void OnSettingBtnDown()
     {
         ShowSettingMenu();
+        //ChangeImage();
     }
     // Use this for initialization
     void Start () {
@@ -70,9 +80,21 @@ public class ChangeScene : MonoBehaviour {
         MainMenuPanel.SetActive(false);
         SettingPanel.SetActive(true);
     }
+  
 
     // Update is called once per frame
     void Update () {
 		
 	}
+    /*public void ChangeImage()
+    {
+        button = GameObject.Find("Canvas/MainMenuPanel/AButton").GetComponent<Button>();
+        image = button.gameObject.GetComponent<Image>();
+
+        Sprite tmp = new Sprite();
+        tmp = Resources.Load("d2", typeof(Sprite)) as Sprite;
+        button.interactable = false;
+        image.sprite = tmp;
+
+    }*/
 }
