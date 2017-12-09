@@ -16,11 +16,17 @@ public class ameMenu : MonoBehaviour {
     private Button button2;
 
     private Image image2;
+
+    [HideInInspector]
+    public SouthMusicPlay MainMusic;
     // Use this for initialization
     void Start () {
         HideAllPanel();
     }
-	
+	void Awake()  
+    {
+        MainMusic = FindObjectOfType<SouthMusicPlay>();
+    }
 	// Update is called once per frame
 	void Update () {
 		
@@ -54,6 +60,8 @@ public class ameMenu : MonoBehaviour {
         ChangeImageA();
     }
     public void OnRestartBtnDown() {
+        MainMusic._MainSource.clip = MainMusic.BackgroundMusic;
+        MainMusic._MainSource.Play();
         SceneManager.LoadScene("GameNew");
     }
     public void ChangeImage()
