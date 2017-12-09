@@ -6,12 +6,16 @@ public class EnemyRabbitDamage : MonoBehaviour {
 
     public float pushForce;
     public float damage;
+    [HideInInspector]
+    public bool playerKilled;
     private EnemyRabbitController erc;
     private PlayerController pc;
     private PlayerHealth ph;
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start () {
         erc = GetComponentInParent<EnemyRabbitController>();
+        playerKilled = false;
 	}
 	
 	// Update is called once per frame
@@ -28,8 +32,10 @@ public class EnemyRabbitDamage : MonoBehaviour {
             pushback(other.transform);
             ph = other.gameObject.GetComponent<PlayerHealth>();
             if (ph.currentHealth <= damage)
-                erc.canFlip = true;
-            ph.takeDamage(damage);
+            {
+                playerKilled = true;
+            }
+            ph.takeDamage(damage); 
         }
     }
 

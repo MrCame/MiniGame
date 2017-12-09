@@ -40,6 +40,7 @@ public class EnemyHealth : MonoBehaviour {
 
     private void onDead()
     {
+        Destroy(gameObject.transform.parent);
         Destroy(gameObject);
     }
 }

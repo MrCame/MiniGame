@@ -14,17 +14,18 @@ public class SnowHealth : MonoBehaviour {
 	void Update () {
 		
 	}
+
+
     void onTriggerEnter2D(Collider2D other) {
         Debug.Log("HH");
         if (other.tag == "Player") {
-            PH = other.GetComponent<PlayerHealth>();
+            PH = other.gameObject.GetComponent<PlayerHealth>();
             PH.takeDamage(snowHealth);
-            Destroy(this.gameObject,2);
-            
+            Destroy(gameObject);           
         }
     }
 
-    void onCollisionEnter2D(Collision2D other)
+   /* void onCollisionEnter2D(Collision2D other)
     {
         Debug.Log("AA");
         if (other.collider.tag == "Player")
@@ -35,5 +36,5 @@ public class SnowHealth : MonoBehaviour {
 
         }
 
-    }
+    }*/
 }

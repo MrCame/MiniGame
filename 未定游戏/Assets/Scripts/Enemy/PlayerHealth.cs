@@ -48,4 +48,20 @@ public class PlayerHealth : MonoBehaviour
         Destroy(gameObject);
         ResourceManager.Instance().gameMenuCtr.ShowFailPanel();
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Snow")
+        {
+            if (currentHealth + 50 >= PlayerMaxHealth)
+            {
+                currentHealth = PlayerMaxHealth;
+            }
+            else
+            {
+                currentHealth += 50;
+            }
+            Destroy(collision.gameObject);
+        }
+    }
 }

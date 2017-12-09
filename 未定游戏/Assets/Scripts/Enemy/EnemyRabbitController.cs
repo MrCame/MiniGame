@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyRabbitController : MonoBehaviour {
 
-    Animator anim;
+    [HideInInspector]public Animator anim;
     public float moveSpeed;   //normal movespeed
     public float attackSpeed;   // speed when chasing character
     public GameObject rabbit;
@@ -14,15 +14,24 @@ public class EnemyRabbitController : MonoBehaviour {
     float nextFlip = 1.0f;   //after this time  you can flip
     Rigidbody2D rb;
 
-	// Use this for initialization
-	void Start () {
+    // Parameters to check whether on ground
+    public Transform groundCheck;
+    public float groundCheckRadius;
+    public LayerMask whatIsGround;
+    private bool onGround;
+
+    private EnemyRabbitDamage erd;
+    // Use this for initialization
+    void Start () {
         anim = GetComponentInChildren<Animator>();
+        erd = GetComponentInChildren<EnemyRabbitDamage>();
         rb = GetComponent<Rigidbody2D>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (Time.time > nextFlip && canFlip)
+        onGround = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
+        if (Time.time > nextFlip && canFlip || onGround == false)
         {
             flipFacing();
             nextFlip = Time.time + flipTime;
@@ -35,7 +44,7 @@ public class EnemyRabbitController : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other == null) return;
+        if (other == null || erd.playerKilled == true)  return;
         if (other.tag == "Player")
         {
             anim.speed = 3;
@@ -51,8 +60,12 @@ public class EnemyRabbitController : MonoBehaviour {
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.tag == "Player")
+        if(other == null || erd.playerKilled == true)
         {
+            return;
+        }
+        else if(other.tag == "Player")
+        { 
             anim.speed = 3;
             if (faceRight == 1 && transform.position.x > other.transform.position.x)
                 flipFacing();
@@ -63,11 +76,7 @@ public class EnemyRabbitController : MonoBehaviour {
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Enemy")
-            return;
-    }
+
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.tag == "Player")

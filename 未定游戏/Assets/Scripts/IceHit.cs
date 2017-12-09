@@ -21,7 +21,14 @@ public class IceHit : MonoBehaviour {
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Shootable"))
         {
-            eh = other.GetComponent<EnemyHealth>();
+            if (other.GetComponent<EnemyHealth>() != null)
+            {
+                eh = other.GetComponent<EnemyHealth>();
+            }
+            else
+            {
+                eh = other.GetComponentInParent<EnemyHealth>();
+            }
             eh.takeDamage(weapondamage);
             Instantiate(explosion, transform.position, transform.rotation);
             Destroy(gameObject);
@@ -32,7 +39,14 @@ public class IceHit : MonoBehaviour {
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Shootable"))
         {
-            eh = other.GetComponent<EnemyHealth>();
+                if (other.GetComponent<EnemyHealth>() != null)
+                {
+                    eh = other.GetComponent<EnemyHealth>();
+                }
+                else
+                {
+                    eh = other.GetComponentInParent<EnemyHealth>();
+                }
             eh.takeDamage(weapondamage);
             Instantiate(explosion, transform.position, transform.rotation);
             Destroy(gameObject);
