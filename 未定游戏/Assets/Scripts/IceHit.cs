@@ -8,6 +8,7 @@ public class IceHit : MonoBehaviour {
     public GameObject explosion;
     private ShotSpeed sh;
     private EnemyHealth eh;
+    public GameObject flake;
 	// Use this for initialization
 	void Awake () {
         sh = GetComponent<ShotSpeed>();
@@ -30,6 +31,14 @@ public class IceHit : MonoBehaviour {
                 eh = other.GetComponentInParent<EnemyHealth>();
             }
             eh.takeDamage(weapondamage);
+            Instantiate(explosion, transform.position, transform.rotation);
+            Destroy(gameObject);
+        }
+
+        if (other.tag == "Ice")
+        {
+            Destroy(other.gameObject);
+            Instantiate(flake, other.transform.position, transform.rotation);
             Instantiate(explosion, transform.position, transform.rotation);
             Destroy(gameObject);
         }

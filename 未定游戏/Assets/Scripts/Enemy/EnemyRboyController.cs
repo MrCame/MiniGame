@@ -11,6 +11,8 @@ public class EnemyRboyController : MonoBehaviour
     float flipTime = 5.0f;
     float nextFlip = 1.0f;
     Rigidbody2D rb;
+    public Rigidbody2D ice;
+    public Transform iceSpawn;
 
     // Use this for initialization
     void Start()
@@ -44,5 +46,10 @@ public class EnemyRboyController : MonoBehaviour
         transform.localScale = new Vector3(facingX, transform.localScale.y, transform.localScale.z);
         faceRight = -faceRight;
         
+    }
+
+    public void MonsterIce()
+    {
+       Instantiate(ice, iceSpawn.position, Quaternion.Euler(new Vector3(0, 0, 0)));
     }
 }

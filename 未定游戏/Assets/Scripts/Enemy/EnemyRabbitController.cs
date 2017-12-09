@@ -13,6 +13,8 @@ public class EnemyRabbitController : MonoBehaviour {
     float flipTime = 5.0f;   //time between two flips
     float nextFlip = 1.0f;   //after this time  you can flip
     Rigidbody2D rb;
+    public Rigidbody2D ice;
+    public Transform iceSpawn;
 
     // Parameters to check whether on ground
     public Transform groundCheck;
@@ -93,5 +95,10 @@ public class EnemyRabbitController : MonoBehaviour {
         facingX *= -1;
         rabbit.transform.localScale = new Vector3(facingX, rabbit.transform.localScale.y, rabbit.transform.localScale.z);
         faceRight = -faceRight;
+    }
+
+    public void MonsterIce()
+    {
+        Instantiate(ice, iceSpawn.position, Quaternion.Euler(new Vector3(0, 0, 0)));
     }
 }

@@ -43,6 +43,30 @@ public class EnemyHealth : MonoBehaviour {
 
     private void onDead()
     {
+        if (gameObject.GetComponent<EnemyFishController>() != null)
+        {
+            gameObject.GetComponent<EnemyFishController>().MonsterIce();
+        }
+        else if(gameObject.GetComponent<EnemyRboyController>() != null)
+        {
+            gameObject.GetComponent<EnemyRboyController>().MonsterIce();
+        }
+        else if (gameObject.GetComponent<EnemyMothController>() != null)
+        {
+            gameObject.GetComponent<EnemyMothController>().MonsterIce();
+        }
+        else if (gameObject.GetComponent<EnemyRabbitController>() != null)
+        {
+            gameObject.GetComponent<EnemyRabbitController>().MonsterIce();
+        }
+        else if (gameObject.GetComponent<EnemySlimController>() != null)
+        {
+            gameObject.GetComponent<EnemySlimController>().MonsterIce();
+        }
+        else if (gameObject.GetComponent<EnemyDemonController>() != null)
+        {
+            gameObject.GetComponent<EnemyDemonController>().MonsterIce();
+        }
         Destroy(gameObject);
     }
 }

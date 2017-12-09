@@ -9,7 +9,8 @@ public class EnemyMothController : MonoBehaviour {
     private bool shootRight;
     private float fireRate = 3.0f;
     private float nextFire = 0f;
-
+    public Rigidbody2D ice;
+    public Transform iceSpawn;
 
     // Use this for initialization
     void Start () {
@@ -59,5 +60,10 @@ public class EnemyMothController : MonoBehaviour {
                 shootRight = false;
             else shootRight = true;
         }
+    }
+
+    public void MonsterIce()
+    {
+        Instantiate(ice, iceSpawn.position, Quaternion.Euler(new Vector3(0, 0, 0)));
     }
 }

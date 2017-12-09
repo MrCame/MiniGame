@@ -14,6 +14,8 @@ public class EnemyDemonController : MonoBehaviour {
     float nextFlip = 1.0f;
     Rigidbody2D rb;
     private PlayerHealth ph;
+    public Rigidbody2D ice;
+    public Transform iceSpawn;
 
     // Use this for initialization
     void Start()
@@ -51,5 +53,10 @@ public class EnemyDemonController : MonoBehaviour {
             ph = other.gameObject.GetComponent<PlayerHealth>();
             ph.takeDamage(damage);
         }
+    }
+
+    public void MonsterIce()
+    {
+        Instantiate(ice, iceSpawn.position, Quaternion.Euler(new Vector3(0, 0, 0)));
     }
 }

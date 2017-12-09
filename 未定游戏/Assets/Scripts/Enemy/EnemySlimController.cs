@@ -14,6 +14,8 @@ public class EnemySlimController : MonoBehaviour
     public float flipTime = 5.0f;   //time between two flips
     float nextFlip = 1.0f;   //after this time  you can flip
     private Rigidbody2D rb;
+    public Rigidbody2D ice;
+    public Transform iceSpawn;
 
     // Use this for initialization
     void Start()
@@ -79,5 +81,10 @@ public class EnemySlimController : MonoBehaviour
         facingX *= -1;
         slim.transform.localScale = new Vector3(facingX, slim.transform.localScale.y, slim.transform.localScale.z);
         faceRight = -faceRight;
+    }
+
+    public void MonsterIce()
+    {
+        Instantiate(ice, iceSpawn.position, Quaternion.Euler(new Vector3(0, 0, 0)));
     }
 }
