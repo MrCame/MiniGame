@@ -31,4 +31,9 @@ public class Bridge : MonoBehaviour {
         }
         
     }
+
+    public void Attack()
+    {
+        Destroy(gameObject);
+    }
 }

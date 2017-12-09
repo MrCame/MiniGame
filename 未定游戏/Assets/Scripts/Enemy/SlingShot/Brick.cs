@@ -49,7 +49,9 @@ public class Brick : MonoBehaviour {
     {
         if (brige != null)
         {
-            brige.DoAction();
+            //Debug.Log("hit!");
+            brige.Attack();
+            //brige.DoAction();
         }
     }
 
