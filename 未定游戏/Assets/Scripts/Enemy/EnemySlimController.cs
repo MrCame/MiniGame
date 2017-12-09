@@ -11,7 +11,7 @@ public class EnemySlimController : MonoBehaviour
     public int faceRight = -1;   //current facing
     [HideInInspector]
     public bool canFlip = true;   // judge if it can flip
-    float flipTime = 5.0f;   //time between two flips
+    public float flipTime = 5.0f;   //time between two flips
     float nextFlip = 1.0f;   //after this time  you can flip
     private Rigidbody2D rb;
 

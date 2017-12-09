@@ -17,7 +17,7 @@ public class CameraController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         pc = player.GetComponent<PlayerController>();
         cam = GetComponent<Camera>();
-        transform.localPosition = new Vector3(-25.38f, -2.14f, -8);  //target for initialization
+        transform.localPosition = new Vector3(-21.18f, -2.14f, -8);  //target for initialization
     }
 
     // Update is called once per frame
@@ -28,7 +28,7 @@ public class CameraController : MonoBehaviour
             camy = transform.localPosition.y;
         }
         else camy = player.transform.position.y;
-        if (player.transform.position.x <= -25.38f)
+        if (player.transform.position.x <= -21.18f)
         {
             camx = transform.localPosition.x;
         }

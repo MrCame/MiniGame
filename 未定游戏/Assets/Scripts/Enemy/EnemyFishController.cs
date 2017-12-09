@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyFishController : MonoBehaviour
 {
     public float damage;
+    public float pushForce;
     private EnemyHealth EH;
     public Rigidbody2D ice;
     public Transform iceSpawn;
@@ -23,16 +24,13 @@ public class EnemyFishController : MonoBehaviour
             Rigidbody2D prb = collision.gameObject.GetComponent<Rigidbody2D>();
             PlayerController pc = collision.gameObject.GetComponent<PlayerController>();
             pc.hit = true;
-            prb.AddForce(new Vector2(-3 * prb.velocity.x, 0), ForceMode2D.Impulse);
+            prb.AddForce(new Vector2(-pushForce * prb.velocity.x, 0), ForceMode2D.Impulse);
             PlayerHealth ph = collision.gameObject.GetComponentInParent<PlayerHealth>();
             ph.takeDamage(damage);
         }
     }
     public void MonsterIce()
     {
-        EnemyHealth EM = gameObject.GetComponent<EnemyHealth>();
-        Rigidbody2D ice = gameObject.GetComponent<Rigidbody2D>();
-        if (EM.enemyHealthBar.value <= 0)
-            Instantiate(ice, iceSpawn.position, Quaternion.Euler(new Vector3(0, 0, 0)));
+        Instantiate(ice, iceSpawn.position, Quaternion.Euler(new Vector3(0, 0, 0)));
     }
 }

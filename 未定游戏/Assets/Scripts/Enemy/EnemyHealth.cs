@@ -31,8 +31,11 @@ public class EnemyHealth : MonoBehaviour {
             if (GetComponentInChildren<EnemySlimDamage>() != null)
             {
                 EnemySlimDamage esd = GetComponentInChildren<EnemySlimDamage>();
-                esd.pc.caught = false;
-                esd.pc.setspeed(new Vector2(0, 0));
+                if (esd.pc != null)
+                {
+                    esd.pc.caught = false;
+                    esd.pc.setspeed(new Vector2(0, 0));
+                }
             }
             onDead();
         }
@@ -40,7 +43,6 @@ public class EnemyHealth : MonoBehaviour {
 
     private void onDead()
     {
-        Destroy(gameObject.transform.parent);
         Destroy(gameObject);
     }
 }
