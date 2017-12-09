@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\ChangeScene.cs" />
      <Compile Include="Assets\Scripts\DestroyMe.cs" />
+     <Compile Include="Assets\Scripts\DocMusic.cs" />
      <Compile Include="Assets\Scripts\Enemy\EnemyCrocController.cs" />
      <Compile Include="Assets\Scripts\Enemy\EnemyDemonController.cs" />
      <Compile Include="Assets\Scripts\Enemy\EnemyFishController.cs" />
