@@ -7,7 +7,10 @@ public class PlayerController : MonoBehaviour {
 	public Rigidbody2D rb;
     public float movespeed = 3.5f;
     public float jumpheight = 9.5f;
+    public float JumpForce = 205f;
+    public float jumpTime = 0.45f;
     public bool TouchJump;
+    private bool jumping = false;
     //public float Force = 300f;
     // Parameters to check whether on ground
     public Transform groundCheck;
@@ -91,16 +94,14 @@ public class PlayerController : MonoBehaviour {
 
         
 
-        if (Input.GetKey(KeyCode.Space) || TouchJump)
+        if((Input.GetKey(KeyCode.Space) || TouchJump) && !jumping)
         {
-            if (onGround)
+            if(onGround)
             {
                 PlayerAudio.MakeAudio(0, true, false, false);
-                rb.velocity = new Vector2(rb.velocity.x, jumpheight);
-
-                //rb.AddForce(new Vector3(0, Force, 0));
-            }
-            TouchJump = false;
+                jumping= true;
+                StartCoroutine(JumpRoutine());
+            }   
         }
 
         if (onGround)
@@ -118,6 +119,26 @@ public class PlayerController : MonoBehaviour {
         }*/
     }
 
+    IEnumerator JumpRoutine()
+    {
+        Vector2 jumpVector = new Vector2(0, JumpForce);
+        //rb.velocity = Vector2.zero;
+        float timer = 0f;
+        while((Input.GetKey(KeyCode.Space) || TouchJump) && timer < jumpTime)
+        {
+        //Calculatehow far through the jump we are as a percentage
+        //applythe full jump force on the first frame, then apply less force
+        //eachconsecutive frame
+            float proportionCompleted = timer / jumpTime;
+            Vector2 thisFrameJumpVector = Vector2.Lerp(jumpVector, Vector2.zero, proportionCompleted);
+            //Debug.Log("Vector:"+thisFrameJumpVector);
+            rb.AddForce(thisFrameJumpVector);
+            timer = timer + Time.deltaTime;
+            yield return null;
+        }
+        jumping = false;
+
+    }
     void Flip ()
     {
         // Switch the way the player is labelled as facing.

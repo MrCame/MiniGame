@@ -17,6 +17,10 @@ public class Touch : MonoBehaviour {
     {
         player1.TouchJump = true;
     }
+    public void ReleaseJump()
+    {
+        player1.TouchJump = false;
+    }
     public void Attack()
     {
         player2.TouchAttack = true;
