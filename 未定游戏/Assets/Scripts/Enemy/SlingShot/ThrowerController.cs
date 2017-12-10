@@ -118,7 +118,8 @@ public class ThrowerController : MonoBehaviour {
 
     void SetTrajectoryLineRendererActive(bool active)
     {
-        trajectoryLineRenderer.enabled = active;
+        //trajectoryLineRenderer.enabled = active;
+        trajectoryLineRenderer.enabled = false;
     }
 
     void SetSlingshotLineRendereActive(bool active)
