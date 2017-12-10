@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyRabbitController : MonoBehaviour {
+public class EnemyRabbitController : MonoBehaviour
+{
 
-    [HideInInspector]public Animator anim;
+    [HideInInspector]
+    public Animator anim;
     public float moveSpeed;   //normal movespeed
     public float attackSpeed;   // speed when chasing character
     public GameObject rabbit;
-    [HideInInspector]public int faceRight = -1;   //current facing
-    [HideInInspector]public bool canFlip = true;   // judge if it can flip
+    [HideInInspector]
+    public int faceRight = -1;   //current facing
+    [HideInInspector]
+    public bool canFlip = true;   // judge if it can flip
     float flipTime = 5.0f;   //time between two flips
     float nextFlip = 1.0f;   //after this time  you can flip
     Rigidbody2D rb;
@@ -21,34 +25,41 @@ public class EnemyRabbitController : MonoBehaviour {
     public float groundCheckRadius;
     public LayerMask whatIsGround;
     private bool onGround;
+    private bool giveup;
 
     private EnemyRabbitDamage erd;
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         anim = GetComponentInChildren<Animator>();
         erd = GetComponentInChildren<EnemyRabbitDamage>();
         rb = GetComponent<Rigidbody2D>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
         onGround = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
-        if (Time.time > nextFlip && canFlip || onGround == false)
+        if ((Time.time > nextFlip && canFlip) || onGround == false)
         {
+            if (onGround == false)
+                canFlip = true;
             flipFacing();
             nextFlip = Time.time + flipTime;
+            giveup = true;
         }
         if (canFlip)
         {
-            rb.velocity = new Vector2(moveSpeed*faceRight, 0);
+            rb.velocity = new Vector2(moveSpeed * faceRight, 0);
         }
-	}
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other == null || erd.playerKilled == true)  return;
+        if (other == null || erd.playerKilled == true) return;
         if (other.tag == "Player")
         {
+            giveup = false;
             anim.speed = 3;
             if (faceRight == 1 && transform.position.x > other.transform.position.x)
                 flipFacing();
@@ -62,12 +73,12 @@ public class EnemyRabbitController : MonoBehaviour {
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if(other == null || erd.playerKilled == true)
+        if (other == null || erd.playerKilled == true || giveup == true)
         {
             return;
         }
-        else if(other.tag == "Player")
-        { 
+        else if (other.tag == "Player")
+        {
             anim.speed = 3;
             if (faceRight == 1 && transform.position.x > other.transform.position.x)
                 flipFacing();
@@ -85,6 +96,7 @@ public class EnemyRabbitController : MonoBehaviour {
         {
             anim.speed = 1.0f;
             canFlip = true;
+            giveup = false;
         }
     }
 
