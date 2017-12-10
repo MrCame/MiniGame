@@ -28,6 +28,8 @@ public class ChangeScene : MonoBehaviour {
     }
     [SerializeField]
     public void onStartBtnDown() {
+        PlayerPrefs.SetFloat("Savex", -33.18f);  //起始点x
+        PlayerPrefs.SetFloat("Savey", -2.14f);   //起始点y
         SceneManager.LoadScene("GameNew");
         BeginMusic._BeginSource.Stop();
     }

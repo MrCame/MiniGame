@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-
     public float minSize; //default should be 8
     public float maxSize; //default should be 8
     private GameObject player;
@@ -12,12 +11,18 @@ public class CameraController : MonoBehaviour
     private Camera cam;
     private float camx, camy; //current x,y value of target
     // Use this for initialization
+
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         pc = player.GetComponent<PlayerController>();
         cam = GetComponent<Camera>();
-        transform.localPosition = new Vector3(-21.18f, -2.14f, -8);  //target for initialization
+        if (PlayerPrefs.GetFloat("Savex") <= -21.18f)
+        {
+            transform.localPosition = new Vector3(-21.18f, player.transform.position.y, -8);
+        }
+        else transform.localPosition = new Vector3(player.transform.position.x, player.transform.position.y, -8);  //target for initialization
     }
 
     // Update is called once per frame

@@ -37,6 +37,11 @@ public class PlayerController : MonoBehaviour {
     public bool hit = false;   // show if the player is hit
     private int hitback = 0;   //count time when hit
 
+    private void Awake()
+    {
+        gameObject.transform.position = new Vector3(PlayerPrefs.GetFloat("Savex"), PlayerPrefs.GetFloat("Savey"), -5f);
+    }
+
     void Start () {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
